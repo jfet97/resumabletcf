@@ -1,0 +1,19 @@
+{
+  "name": "resumabletcf",
+  "version": "1.0.0",
+  "description": "A package that let recover failed computations inside try blocks",
+  "main": "index.js",
+  "scripts": {
+  },
+  "keywords": [
+    "try",
+    "recover",
+    "resumable"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jfet97/resumabletcf.git"
+  },
+  "author": "Andrea Simone Costa aka jfet97 <andrysimo1997@gmail.com>",
+  "license": "MIT"
+}
