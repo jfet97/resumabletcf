@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/sync/index.js</title>
+    <title>Code coverage report for src/async/index.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\base.css" />
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">src/sync</a> index.js
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/async</a> index.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -300,52 +300,52 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isFunction, isGenerator, COMPUTE_RESULT_FN_KEY, COMPUTE_RESULT_FN_VALUE } from "../utilities";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isFunction, isAsyncGenerator, COMPUTE_RESULT_FN_KEY, COMPUTE_RESULT_FN_VALUE } from "../utilities";
 &nbsp;
 /**
  *
  *
- * @param {Generator} The generator that contains the try block computation
+ * @param {Generator} The asyncGenerator that contains the try block computation
  */
-function performSync(generator) {
+async function performAsync(asyncGenerator) {
 &nbsp;
-  if (!isGenerator(generator)) {
-    throw TypeError(`${generator} is not a generator function`);
+  if (!isAsyncGenerator(asyncGenerator)) {
+    throw TypeError(`${asyncGenerator} is not an asyncGenerator function`);
   }
 &nbsp;
-  /** the iterator produced by the generator */
-  const it = generator();
+  /** the iterator produced by the asyncGenerator */
+  const ait = asyncGenerator();
 &nbsp;
-  /** it will store the IteratorResult */
+  /** it will store the AsyncIteratorResult */
   let next;
-  /** it will store the result of calling the almostSafeComputation function contained into the IteratorResult */
+  /** it will store the result of calling the almostSafeComputation function contained into the AsyncIteratorResult */
   let value;
 &nbsp;
 &nbsp;
   /** start the iteration */
-  next = it.next(value);
+  next = await ait.next(value);
 &nbsp;
-  while (!next.done) { /** don't care about the returned value from the generator */
+  while (!next.done) { /** don't care about the returned value from the asyncGenerator */
 &nbsp;
     /**
-     * we feed the generator with the last value
+     * we feed the asyncGenerator with the last value
      *  during the first iteration, the value will be undefined but generators do ignore the first inserted value
      *
-     *  if the generator itself throws an error I'm not going to do anything because 'performSync' helps only with failed computation wrapped
-     *  with the help of 'computedSync'
+     *  if the asyncGenerator itself throws an error I'm not going to do anything because 'performAsync' helps only with failed computation wrapped
+     *  with the help of 'computedAsync'
      */
 &nbsp;
     let almostSafeComputation = next.value;
 &nbsp;
     if (!(almostSafeComputation[COMPUTE_RESULT_FN_KEY])) {
-      throw Error("Do not yield entities not created with the 'computeSync' function")
+      throw Error("Do not yield entities not created with the 'computeAsync' function")
     }
 &nbsp;
     /** it's almost safe because without a recovery value I have to throw inside it in case of failed attempts */
-    value = almostSafeComputation();
+    value = await almostSafeComputation();
 &nbsp;
     /** continue the iteration */
-    next = it.next(value);
+    next = await ait.next(value);
   }
 &nbsp;
 &nbsp;
@@ -359,7 +359,7 @@ function performSync(generator) {
  * @param {any} [recoveryValue=void 0]
  * @returns
  */
-function computeSync(taskToExecuteThatMayThrow = () =&gt; { }, howManyTimesToRetry = 0, recoveryValue = void 0) {
+function computeAsync(taskToExecuteThatMayThrow = () =&gt; { }, howManyTimesToRetry = 0, recoveryValue = void 0) {
 &nbsp;
   if (!isFunction(taskToExecuteThatMayThrow)) {
     throw TypeError(`${taskToExecuteThatMayThrow} is not a function`);
@@ -374,7 +374,7 @@ function computeSync(taskToExecuteThatMayThrow = () =&gt; { }, howManyTimesToRet
   let shouldBeRecoveredAfterMultipleFailures = false;
 &nbsp;
   /** computed was called without arguments (non-sensical) */
-  /** computed was called only with the task to execute (non-sensical because it will be tried only one time so what's the point of using 'computeSync'?) */
+  /** computed was called only with the task to execute (non-sensical because it will be tried only one time so what's the point of using 'computeAsync'?) */
   /** computed was called with both the task to execute and the times we have to retry it in case of failure (ok) */
   if (argumentsLength &lt;= 2) { }
 &nbsp;
@@ -384,7 +384,7 @@ function computeSync(taskToExecuteThatMayThrow = () =&gt; { }, howManyTimesToRet
     shouldBeRecoveredAfterMultipleFailures = true;
   }
 &nbsp;
-  const functionToBeReturned = function almostSafeComputation() {
+  const functionToBeReturned = async function almostSafeComputation() {
 &nbsp;
     let resultValue = null;
     let error = null;
@@ -393,7 +393,7 @@ function computeSync(taskToExecuteThatMayThrow = () =&gt; { }, howManyTimesToRet
     do {
 &nbsp;
       try {
-        resultValue = taskToExecuteThatMayThrow();
+        resultValue = await taskToExecuteThatMayThrow();
 &nbsp;
         /** if the task was completed successfully, reset the error and stop the cycle */
         error = null;
@@ -420,13 +420,13 @@ function computeSync(taskToExecuteThatMayThrow = () =&gt; { }, howManyTimesToRet
     return resultValue;
   }
 &nbsp;
-  /** it marks unequivocally functons created by the 'computeSync' function */
+  /** it marks unequivocally functons created by the 'computeAsync' function */
   functionToBeReturned[COMPUTE_RESULT_FN_KEY] = COMPUTE_RESULT_FN_VALUE;
 &nbsp;
   return functionToBeReturned;
 }
 &nbsp;
-export { performSync, computeSync };
+export { performAsync, computeAsync };
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
