@@ -7,7 +7,7 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "keywords": [
     "try",
