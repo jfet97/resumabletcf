@@ -6,11 +6,15 @@
   "files": [
     "/dist"
   ],
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "keywords": [
     "try",
     "recover",
-    "resumable"
+    "resumable",
+    "catch",
+    "javascript"
   ],
   "repository": {
     "type": "git",
@@ -20,5 +24,16 @@
   "license": "MIT",
   "engines": {
     "node": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   }
 }
