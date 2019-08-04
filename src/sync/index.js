@@ -32,7 +32,7 @@ function performSync(generator) {
 
     let almostSafeComputation = next.value;
 
-    if (!(COMPUTE_RESULT_FN_KEY in almostSafeComputation)) {
+    if (!(almostSafeComputation[COMPUTE_RESULT_FN_KEY])) {
       throw Error("Do not yield entities not created with the 'computeSync' function")
     }
 
