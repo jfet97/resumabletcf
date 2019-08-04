@@ -49,7 +49,14 @@ function performSync(generator) {
 
 
 }
-
+/**
+ *
+ *
+ * @param {function} [taskToExecuteThatMayThrow=() => { }] The task to execute that may throw an error
+ * @param {number} [howManyTimesToRetry=0]
+ * @param {any} [recoveryValue=void 0]
+ * @returns
+ */
 function computeSync(taskToExecuteThatMayThrow = () => { }, howManyTimesToRetry = 0, recoveryValue = void 0) {
 
   if (!isFunction(taskToExecuteThatMayThrow)) {
