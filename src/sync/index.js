@@ -19,16 +19,19 @@ function performSync(generator) {
   /** it will store the result of calling the almostSafeComputation function contained into the IteratorResult */
   let value;
 
-  do {
-    /** we feed the generator with the last value
-		 *  during the first iteration, the value will be undefined but generators do ignore the first inserted value
+
+  /** start the iteration */
+  next = it.next(value);
+
+  while (!next.done) { /** don't care about the returned value from the generator */
+
+    /**
+     * we feed the generator with the last value
+     *  during the first iteration, the value will be undefined but generators do ignore the first inserted value
      *
      *  if the generator itself throws an error I'm not going to do anything because 'performSync' helps only with failed computation wrapped
      *  with the help of 'computedSync'
      */
-    next = it.next(value);
-
-
 
     let almostSafeComputation = next.value;
 
@@ -39,7 +42,9 @@ function performSync(generator) {
     /** it's almost safe because without a recovery value I have to throw inside it in case of failed attempts */
     value = almostSafeComputation();
 
-  } while (!next.done)
+    /** continue the iteration */
+    next = it.next(value);
+  }
 
 
 
