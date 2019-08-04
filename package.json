@@ -7,7 +7,9 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "build": "rollup -c",
+    "watch": "rollup -cw"
   },
   "keywords": [
     "try",
@@ -29,7 +31,10 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "babel-jest": "^24.8.0",
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "rollup": "^1.18.0",
+    "rollup-plugin-babel-minify": "^9.0.0",
+    "rollup-plugin-cleanup": "^3.1.1"
   },
   "jest": {
     "transform": {
