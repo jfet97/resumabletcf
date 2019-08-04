@@ -2,7 +2,10 @@
   "name": "resumabletcf",
   "version": "1.0.0",
   "description": "A package that let recover failed computations inside try blocks",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "/dist"
+  ],
   "scripts": {},
   "keywords": [
     "try",
