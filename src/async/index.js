@@ -46,8 +46,9 @@ async function performAsync(asyncGenerator) {
     next = await ait.next(value);
   }
 
-
-
+  /** return the value returned by the async generator */
+  return next.value;
+  
 }
 /**
  *

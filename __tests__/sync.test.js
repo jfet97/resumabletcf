@@ -113,6 +113,17 @@ describe("performSync", () => {
     expect(mockFn).toHaveBeenCalledTimes(3);
   });
 
+  test('the returned value from the generator should be returned by \'performSync\'', () => {
+
+    const returnValue = {};
+
+    const res = performSync(function* () {
+      return returnValue;
+    });
+
+    expect(res).toBe(returnValue);
+  });
+
   test('if no value is passed for the \'howManyTimesToRetry\' parameter, the total attempts calling the erroneous function should be one', () => {
 
     const errorFn = jest.fn(() => { throw {} });

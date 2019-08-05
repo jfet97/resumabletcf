@@ -46,6 +46,9 @@ function performSync(generator) {
     next = it.next(value);
   }
 
+  /** return the value returned by the generator */
+  return next.value;
+
 
 
 }

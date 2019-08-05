@@ -117,6 +117,17 @@ describe("performAsync", () => {
     expect(mockFn).toHaveBeenCalledTimes(3);
   });
 
+  test('the returned value from the async generator should be returned by \'performAsync\'', async () => {
+
+    const returnValue = {};
+
+    const res = await performAsync(async function* () {
+      return returnValue;
+    });
+
+    expect(res).toBe(returnValue);
+  });
+
   test('if no value is passed for the \'howManyTimesToRetry\' parameter, the total attempts calling the erroneous function should be one', async () => {
 
     const errorFn = jest.fn(() => { throw {} });
