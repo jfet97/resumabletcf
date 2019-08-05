@@ -20,7 +20,7 @@ After an error is thrown inside a function, we cannot recover the original code 
 This package give to us at least the possibility to try again the failed computation from the client perspective and, if it is the case, replace its value with a fallback one.
 
 ## readme
-I've written an [exhaustive article](https://dev.to/jfet97/how-to-resume-the-flow-inside-a-failed-try-block-computation-without-algebraic-effects-163k-temp-slug-9699468?preview=9ebdfc5fe84a2ff7efd6c62dae0e50c281c6f3d435c244c51473c791bbae3b0026f24fa974cda75e1599dd5a6e1e4dbb2c695b8eec6fdb089770ba04) about this package.
+I've written an [exhaustive article](https://dev.to/jfet97/how-to-resume-the-flow-inside-a-failed-try-block-computation-without-algebraic-effects-pbo) about this package.
 Please read it to make me happy :D.\
 You'll find the background of the package, a more detailed example of its use to connect to some remote API and an example of its limitations.
 
